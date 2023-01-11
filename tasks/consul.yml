@@ -1,0 +1,15 @@
+---
+- name: Gorush | Create Consul service
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ gorush_cont_name }}'
+    consul_services:
+      - name: '{{ gorush_cont_name }}'
+        tags: ['notifications', 'gorush']
+        port: '{{ gorush_cont_port }}'
+        address: '{{ ansible_local.wireguard.vpn_ip }}'
+        checks:
+          - id: '{{ gorush_cont_name }}-health'
+            name: Gorush Healthcheck
+            type: http
+            http: 'http://localhost:{{ gorush_cont_port }}/healthz'

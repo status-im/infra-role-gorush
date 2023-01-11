@@ -1,0 +1,13 @@
+---
+version: '3.7'
+services:
+  app:
+    container_name: '{{ gorush_cont_name }}'
+    image: '{{ gorush_cont_image }}'
+    restart: 'always'
+    ports:
+      - '{{ gorush_cont_port }}:{{ gorush_cont_port }}/tcp'
+    volumes:
+      - '{{ gorush_cont_vol }}/conf:/conf'
+    command: |
+      --config=/conf/config.yml

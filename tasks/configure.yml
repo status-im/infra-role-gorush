@@ -1,0 +1,25 @@
+---
+- name: Gorush | Create directories
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+    - '{{ gorush_cont_vol }}/conf'
+    - '{{ gorush_cont_vol }}/data'
+
+- name: Gorush | Create key file
+  copy:
+    dest: '{{ gorush_cont_ios_key }}'
+    content: '{{ gorush_ios_apple_key_contents | mandatory }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode: 0400
+
+- name: Gorush | Create config file
+  template:
+    src: 'config.yml.j2'
+    dest: '{{ gorush_cont_config }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode: 0644
+  register: gorush_config_file

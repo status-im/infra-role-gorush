@@ -1,0 +1,17 @@
+---
+- name: Gorush | Create compose file
+  template:
+    src:   'docker-compose.yml.j2'
+    dest:  '{{ gorush_cont_vol }}/docker-compose.yml'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644
+
+- name: Gorush | Create container
+  docker_compose:
+    project_src: '{{ gorush_cont_vol }}'
+    state: '{{ compose_state }}'
+    recreate: '{{ compose_recreate }}'
+    restarted: '{{ gorush_config_file.changed | default(compose_restart) }}'
+    pull: false
+    build: no
