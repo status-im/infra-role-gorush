@@ -1,6 +1,6 @@
 ---
 - name: Gorush | Create Consul service
-  include_role: name=consul-service
+  include_role: name=infra-role-consul-service
   vars:
     consul_config_name: '{{ gorush_cont_name }}'
     consul_services:
