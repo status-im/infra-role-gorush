@@ -1,11 +1,14 @@
 ---
-gorush_cont_version: '1.16.0-linux-amd64'
+gorush_cont_version: '1.18.9'
 gorush_cont_image: 'appleboy/gorush:{{ gorush_cont_version }}'
 gorush_cont_name: 'gorush'
 gorush_cont_vol: '/docker/{{ gorush_cont_name }}'
 gorush_cont_port: 8080
+gorush_cont_uid: 1000
+gorush_host_uid: '{{ 100000 + gorush_cont_uid | int }}'
 gorush_cont_config: '{{ gorush_cont_vol }}/conf/config.yml'
 gorush_cont_ios_key: '{{ gorush_cont_vol }}/conf/key.p8'
+gorush_cont_android_key: '{{ gorush_cont_vol }}/conf/key.json'
 
 # These should be secret
 gorush_ios_apple_key_contents: ~
@@ -13,9 +16,14 @@ gorush_ios_apple_key_id: ~
 gorush_ios_apple_team_id: ~
 
 # These should be secret
-gorush_android_firebase_key: ~
+gorush_android_firebase_key_contents: ~
+
+# Healthcheck defaults
+gorush_healthcheck_interval: '30s'
+gorush_healthcheck_timeout: '30s'
+gorush_healthcheck_retries: 3
+gorush_healthcheck_start_period: '10s'
 
 # Docker Compose
 compose_state: 'present'
-compose_recreate: 'smart'
-compose_restart: false
+compose_recreate: 'auto'

@@ -31,7 +31,7 @@ api:
 
 android:
   enabled: true
-  apikey: "{{ gorush_android_firebase_key | mandatory }}"
+  key_path: "/conf/key.json"
   max_retry: 0 # resend fail notification, default value zero is disabled
 
 queue:

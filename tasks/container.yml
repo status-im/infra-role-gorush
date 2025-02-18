@@ -8,10 +8,9 @@
     mode:  0644
 
 - name: Gorush | Create container
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ gorush_cont_vol }}'
     state: '{{ compose_state }}'
-    recreate: '{{ compose_recreate }}'
-    restarted: '{{ gorush_config_file.changed | default(compose_restart) }}'
-    pull: false
-    build: no
+    recreate: '{{ "always" if gorush_config_file.changed | default(compose_recreate) }}'
+    pull: 'never'
+    build: 'never'

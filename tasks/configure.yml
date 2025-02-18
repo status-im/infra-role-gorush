@@ -7,19 +7,27 @@
     - '{{ gorush_cont_vol }}/conf'
     - '{{ gorush_cont_vol }}/data'
 
-- name: Gorush | Create key file
+- name: Gorush | Create key file iOS
   copy:
     dest: '{{ gorush_cont_ios_key }}'
     content: '{{ gorush_ios_apple_key_contents | mandatory }}'
-    owner: 'dockremap'
-    group: 'docker'
+    owner: '{{ gorush_host_uid }}'
+    group: '{{ gorush_host_uid }}'
+    mode: 0400
+
+- name: Gorush | Create key file Android
+  copy:
+    dest: '{{ gorush_cont_android_key }}'
+    content: '{{ gorush_android_firebase_key_contents | mandatory }}'
+    owner: '{{ gorush_host_uid }}'
+    group: '{{ gorush_host_uid }}'
     mode: 0400
 
 - name: Gorush | Create config file
   template:
     src: 'config.yml.j2'
     dest: '{{ gorush_cont_config }}'
-    owner: 'dockremap'
-    group: 'docker'
+    owner: '{{ gorush_host_uid }}'
+    group: '{{ gorush_host_uid }}'
     mode: 0644
   register: gorush_config_file

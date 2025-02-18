@@ -1,5 +1,4 @@
 ---
-version: '3.7'
 services:
   app:
     container_name: '{{ gorush_cont_name }}'
@@ -11,3 +10,9 @@ services:
       - '{{ gorush_cont_vol }}/conf:/conf'
     command: |
       --config=/conf/config.yml
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider http://0.0.0.0:{{ gorush_cont_port }}/healthz"]
+      interval: '{{ gorush_healthcheck_interval }}'
+      timeout: '{{ gorush_healthcheck_timeout }}'
+      retries: {{ gorush_healthcheck_retries }}
+      start_period: '{{ gorush_healthcheck_start_period }}'
