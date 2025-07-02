@@ -5,6 +5,7 @@ gorush_cont_name: 'gorush'
 gorush_cont_vol: '/docker/{{ gorush_cont_name }}'
 gorush_cont_port: 8080
 gorush_cont_uid: 1000
+gorush_docker_network_name: '{{ gorush_cont_name }}'
 gorush_host_uid: '{{ 100000 + gorush_cont_uid | int }}'
 gorush_cont_config: '{{ gorush_cont_vol }}/conf/config.yml'
 gorush_cont_ios_key: '{{ gorush_cont_vol }}/conf/key.p8'

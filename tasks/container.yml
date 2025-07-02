@@ -11,6 +11,6 @@
   community.docker.docker_compose_v2:
     project_src: '{{ gorush_cont_vol }}'
     state: '{{ compose_state }}'
-    recreate: '{{ "always" if gorush_config_file.changed | default(compose_recreate) }}'
+    recreate: '{{ "always" if gorush_config_file.changed else compose_recreate }}'
     pull: 'never'
     build: 'never'
