@@ -1,4 +1,9 @@
 ---
+networks:
+  default:
+    name: '{{ gorush_docker_network_name }}'
+    external: true
+
 services:
   app:
     container_name: '{{ gorush_cont_name }}'
